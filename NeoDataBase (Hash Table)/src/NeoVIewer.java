@@ -7,7 +7,6 @@ import java.util.Scanner;
  * @author Yixiu Liu 110602460
  * yixiu.liu@stonbybrook.edu
  * CSE 214-R03 Daniel Scanteianu
- *
  */
 public class NeoVIewer {
 	private static Scanner sc = new Scanner(System.in);
@@ -39,7 +38,7 @@ public class NeoVIewer {
 				addPage();
 				break;
 			case "S":
-				sort();
+				sortOptions();
 				break;
 			case "P":
 				dataBase.printTable();
@@ -65,7 +64,9 @@ public class NeoVIewer {
 			int pageNumber = Integer.parseInt(sc.nextLine().trim());
 			dataBase.addAll(dataBase.buildQueryURL(pageNumber));
 		}catch(IllegalArgumentException e){
-			System.out.println("Invalid input: "+e.getMessage());
+			System.out.println("Invalid. "+e.getMessage());
+		}catch(Exception e){
+			System.out.println("Page can't be read");
 		}
 	}
 	
@@ -73,7 +74,7 @@ public class NeoVIewer {
 	 * Prompt the user to input sorting option and sort the database based
 	 * on the option.
 	 */
-	public static void sort(){
+	public static void sortOptions(){
 		System.out.println(sortMenu);
 		switch(sc.nextLine().trim().toUpperCase()){
 		case "R":
@@ -85,7 +86,7 @@ public class NeoVIewer {
 			System.out.println("Table sorted on diameter.");
 			break;
 		case "A":
-			dataBase.sortM(new ApproachDateComparator());
+			dataBase.sort(new ApproachDateComparator());
 			System.out.println("Table sorted on approach date.");
 			break;
 		case "M":

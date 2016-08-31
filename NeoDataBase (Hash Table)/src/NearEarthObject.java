@@ -1,7 +1,8 @@
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -78,18 +79,16 @@ public class NearEarthObject{
 				isDangerous, 
 				DateFormat.getDateInstance(DateFormat.MEDIUM)
 				.format(closestApproachDate), missDistance, orbitingBody);
-		//DateFormat.getDateInstance(DateFormat.SHORT).format(closestApproachDate)
-		//new SimpleDateFormat("MM-dd-yy").format(closestApproachDate)
 	}
 
 	/**
-	 * Set the Cloest Approach Date.
+	 * Set the Closest Approach Date.
 	 * 
-	 * @param cloestApproachDate
-	 * Cloest Approach Date.
+	 * @param closestApproachDate
+	 * Closest Approach Date.
 	 */
-	public void setCloestApproachDate(Date cloestApproachDate) {
-		this.closestApproachDate = cloestApproachDate;
+	public void setClosestApproachDate(Date closestApproachDate) {
+		this.closestApproachDate = closestApproachDate;
 	}
 	
 	/**
@@ -158,17 +157,17 @@ public class NearEarthObject{
 	 * @param isDangerous
 	 * Danger Level of the NearEarthObject.
 	 */
-	public void setDangerous(boolean isDangerous) {
+	public void setIsDangerous(boolean isDangerous) {
 		this.isDangerous = isDangerous;
 	}
 	
 	/**
-	 * Set the Cloest Approach Date
+	 * Set the Closest Approach Date
 	 * 
 	 * @return
-	 * Cloest Approach Date of the NearEarthObject.
+	 * Closest Approach Date of the NearEarthObject.
 	 */
-	public Date getCloestApproachDate() { return closestApproachDate; }
+	public Date getClosestApproachDate() { return closestApproachDate; }
 	
 	/**
 	 * Get the ID
@@ -224,5 +223,31 @@ public class NearEarthObject{
 	 * @return
 	 * Danger Level of the NearEarthObject.
 	 */
-	public boolean isDangerous() { return isDangerous; }
+	public boolean getIsDangerous() { return isDangerous; }
+
+	@Override
+	/**
+	 * Check the equality of two NearEarthObjects by comparing the
+	 * variables.
+	 *
+	 * @param o
+	 * Object to compare to
+	 *
+	 * @return
+	 * True of all fields are equal
+	 * False otherwise
+	 */
+	public boolean equals(Object o){
+		if(!(o instanceof NearEarthObject))
+			return false;
+		NearEarthObject e = (NearEarthObject)o;
+		if(		name.equals(e.name)&&
+				referenceID == e.referenceID&&
+				averageDiameter == e.averageDiameter&&
+				missDistance == e.missDistance&&
+				closestApproachDate.equals(e.closestApproachDate)&&
+				orbitingBody.equals(e.orbitingBody)
+		)return true;
+		else return false;
+	}
 }

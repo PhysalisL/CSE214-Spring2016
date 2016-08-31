@@ -23,11 +23,11 @@ public class ApproachDateComparator implements Comparator<NearEarthObject>{
 	 * 0 if both are equal.
 	 */
 	public int compare(NearEarthObject left, NearEarthObject right){
-		if(left.getCloestApproachDate().after(
-				right.getCloestApproachDate()))
+		if(left.getClosestApproachDate().after(
+				right.getClosestApproachDate()))
 			return 1;
-		else if(left.getCloestApproachDate().before(
-				right.getCloestApproachDate()))
+		else if(left.getClosestApproachDate().before(
+				right.getClosestApproachDate()))
 			return -1;
 		else
 			return 0;

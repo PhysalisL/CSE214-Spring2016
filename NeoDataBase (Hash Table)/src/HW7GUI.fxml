@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="500.0" prefWidth="1200.0" style="-fx-background-color: gray;"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+   <children>
+      <TableView fx:id="tableView" prefHeight="452.0" prefWidth="1200.0" style="-fx-background-color: dimgray;">
+        <columns>
+          <TableColumn fx:id="id" prefWidth="153.0" text="ID" />
+          <TableColumn fx:id="name" minWidth="7.0" prefWidth="142.0" text="Name" />
+            <TableColumn fx:id="mag" prefWidth="95.0" text="Magnitude" />
+            <TableColumn fx:id="dia" prefWidth="202.0" text="Diameter" />
+            <TableColumn fx:id="danger" prefWidth="101.0" text="Danger" />
+            <TableColumn fx:id="date" prefWidth="231.0" text="Date Approach" />
+            <TableColumn fx:id="miss" prefWidth="174.0" text="Miss Distance" />
+            <TableColumn fx:id="body" prefWidth="101.0" text="Orbit" />
+        </columns>
+      </TableView>
+      <TextField fx:id="addPageTextField" layoutX="193.0" layoutY="462.0" promptText="Page Number" />
+      <Button fx:id="addPageButton" layoutX="380.0" layoutY="462.0" mnemonicParsing="false" text="Add Page" />
+      <Text fx:id="errorReport" fill="#f80101" layoutX="515.0" layoutY="483.0" strokeType="OUTSIDE"
+            strokeWidth="0.0" wrappingWidth="218.6708984375" />
+   </children>
+</AnchorPane>

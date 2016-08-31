@@ -1,5 +1,3 @@
-import java.util.Comparator;
-import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import big.data.DataSource;
@@ -33,7 +31,8 @@ public class NeoDataBase extends LinkedList<NearEarthObject>{
 	 * @throws IllegalArgumentException
 	 * Indicate pageNumber is not in range.
 	 */
-	public String buildQueryURL(int pageNumber) throws IllegalArgumentException{
+	public String buildQueryURL(int pageNumber)
+			throws IllegalArgumentException{
 		if(pageNumber<0 || pageNumber>715)
 			throw new IllegalArgumentException("Invalid page range");
 		
@@ -79,87 +78,29 @@ public class NeoDataBase extends LinkedList<NearEarthObject>{
 				+ "miss_distance/kilometers",
 				"near_earth_objects/close_approach_data/orbiting_body");
 		}catch(NullPointerException e){
-			throw new IllegalArgumentException("");
+			throw new IllegalArgumentException("Page cannot be read.");
 		}
 		
 		for(int i=0; i<array.length; i++){
-			add(array[i]);
+			if(!contains(array[i]))
+				add(array[i]);
 		}
 		
-	}
-	
-	/**
-	 * 
-	 * @param comparator
-	 * @throws EmptyStackException
-	 */
-	public void sortM(Comparator<NearEarthObject> comparator) throws EmptyStackException{
-		//before sorting, get the data into an array: ie turn linkedlist->array
-		if(size()<=0)
-			throw new EmptyStackException();
-		
-		mergeSort(this, comparator);
 	}
 	
 	/**
 	 * Print the formatted table representation of the database
 	 */
 	public void printTable(){
-		String line = new String[96].toString();
+		String line = new String(new char[96]).replace('\u0000','-');
 		System.out.println(String.format(
 				"%-10s %-15s %-8s %-10s %-10s %-16s %-12s %-9s\n%s", 
 				"ID","Name","Mag","Diameter","Danger","Close Date",
-				"Miss Dist","Orbits", line.replace('\u0000', '-')));
+				"Miss Dist","Orbits", line));
 		
 		Iterator<NearEarthObject> it = iterator();
 		while(it.hasNext()){
 			System.out.println(it.next().toString());
 		}
-	}
-	
-	
-	//MERGE SORT!
-	private LinkedList<NearEarthObject> mergeSort(
-			LinkedList<NearEarthObject> list, 
-			Comparator<NearEarthObject> comparator){
-		
-		if(list.size()<=1){
-			return list;
-		}
-		else{
-			LinkedList<NearEarthObject> left = mergeSort(subList(0, list.size()/2), comparator);
-			LinkedList<NearEarthObject> right = mergeSort(subList(list.size()/2, list.size()), comparator);
-			return merge(left, right, list, comparator);
-		}
-	}
-	
-	@Override
-	public LinkedList<NearEarthObject> subList(int start, int end){
-		return new LinkedList<NearEarthObject>(super.subList(start, end));
-	}
-	
-	private LinkedList<NearEarthObject> merge(
-			LinkedList<NearEarthObject> left, 
-			LinkedList<NearEarthObject> right, 
-			LinkedList<NearEarthObject> list, 
-			Comparator<NearEarthObject> comparator){
-		
-		int iterIndex = 0;
-		while(!left.isEmpty() && !right.isEmpty()){
-			if(comparator.compare(left.getFirst(), right.getFirst())<=0){
-				//list.add(left.pop());
-				list.add(iterIndex++, left.pop());
-			}
-			else{
-				list.add(iterIndex++, right.pop());
-			}
-		}
-		if(!left.isEmpty()){
-			list.addAll(iterIndex, left);
-		}
-		else if(!right.isEmpty()){
-			list.addAll(iterIndex, right);
-		}
-		return list;
 	}
 }
